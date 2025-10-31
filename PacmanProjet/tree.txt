@@ -1,0 +1,148 @@
+.
+├── assets
+│   ├── assets.txt
+│   └── ui
+│       ├── font.fnt
+│       ├── font-list.fnt
+│       ├── font-subtitle.fnt
+│       ├── font-window.fnt
+│       ├── uiskin.atlas
+│       ├── uiskin.json
+│       └── uiskin.png
+├── build
+│   └── reports
+│       └── problems
+│           └── problems-report.html
+├── build.gradle
+├── core
+│   ├── build
+│   │   ├── classes
+│   │   │   └── java
+│   │   │       └── main
+│   │   │           └── com
+│   │   │               └── pacman
+│   │   │                   ├── Main.class
+│   │   │                   └── model
+│   │   │                       └── components
+│   │   │                           ├── algorithms
+│   │   │                           │   ├── BinaryTree.class
+│   │   │                           │   ├── MazeAlgorithms.class
+│   │   │                           │   ├── RecursiveBacktracker.class
+│   │   │                           │   ├── Sidewinder.class
+│   │   │                           │   └── TruePrims.class
+│   │   │                           ├── ExperimentApp.class
+│   │   │                           └── maze
+│   │   │                               ├── Cell.class
+│   │   │                               └── Grid.class
+│   │   ├── generated
+│   │   │   └── sources
+│   │   │       ├── annotationProcessor
+│   │   │       │   └── java
+│   │   │       │       └── main
+│   │   │       └── headers
+│   │   │           └── java
+│   │   │               └── main
+│   │   ├── libs
+│   │   │   └── core-1.0.0.jar
+│   │   └── tmp
+│   │       ├── compileJava
+│   │       │   ├── compileTransaction
+│   │       │   │   ├── backup-dir
+│   │       │   │   └── stash-dir
+│   │       │   │       └── Main.class.uniqueId0
+│   │       │   └── previous-compilation-data.bin
+│   │       └── jar
+│   │           └── MANIFEST.MF
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           └── java
+│               └── com
+│                   └── pacman
+│                       ├── controller
+│                       ├── Main.java
+│                       ├── model
+│                       │   └── components
+│                       │       ├── algorithms
+│                       │       │   ├── BinaryTree.java
+│                       │       │   ├── MazeAlgorithms.java
+│                       │       │   ├── RecursiveBacktracker.java
+│                       │       │   ├── Sidewinder.java
+│                       │       │   └── TruePrims.java
+│                       │       ├── ExperimentApp.java
+│                       │       └── maze
+│                       │           ├── Cell.java
+│                       │           └── Grid.java
+│                       └── view
+├── gradle
+│   ├── gradle-daemon-jvm.properties
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── lwjgl3
+│   ├── build
+│   │   ├── classes
+│   │   │   └── java
+│   │   │       └── main
+│   │   │           └── com
+│   │   │               └── pacman
+│   │   │                   └── lwjgl3
+│   │   │                       ├── Lwjgl3Launcher.class
+│   │   │                       └── StartupHelper.class
+│   │   ├── generated
+│   │   │   └── sources
+│   │   │       ├── annotationProcessor
+│   │   │       │   └── java
+│   │   │       │       └── main
+│   │   │       └── headers
+│   │   │           └── java
+│   │   │               └── main
+│   │   ├── resources
+│   │   │   └── main
+│   │   │       ├── assets.txt
+│   │   │       ├── libgdx128.png
+│   │   │       ├── libgdx16.png
+│   │   │       ├── libgdx32.png
+│   │   │       ├── libgdx64.png
+│   │   │       └── ui
+│   │   │           ├── font.fnt
+│   │   │           ├── font-list.fnt
+│   │   │           ├── font-subtitle.fnt
+│   │   │           ├── font-window.fnt
+│   │   │           ├── uiskin.atlas
+│   │   │           ├── uiskin.json
+│   │   │           └── uiskin.png
+│   │   └── tmp
+│   │       └── compileJava
+│   │           ├── compileTransaction
+│   │           │   ├── backup-dir
+│   │           │   └── stash-dir
+│   │           │       └── Lwjgl3Launcher.class.uniqueId0
+│   │           └── previous-compilation-data.bin
+│   ├── build.gradle
+│   ├── icons
+│   │   ├── logo.icns
+│   │   ├── logo.ico
+│   │   └── logo.png
+│   ├── nativeimage.gradle
+│   └── src
+│       └── main
+│           ├── java
+│           │   └── com
+│           │       └── pacman
+│           │           └── lwjgl3
+│           │               ├── Lwjgl3Launcher.java
+│           │               └── StartupHelper.java
+│           └── resources
+│               ├── libgdx128.png
+│               ├── libgdx16.png
+│               ├── libgdx32.png
+│               └── libgdx64.png
+├── README.md
+├── settings.gradle
+└── tree.txt
+
+77 directories, 69 files
