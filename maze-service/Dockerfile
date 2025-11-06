@@ -9,7 +9,9 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy only the executable JAR (not the plain one)
-COPY --from=build /app/build/libs/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/build/libs/*-SNAPSHOT.jar app.jar
+
+#COPY --from=build /app/build/libs/demo-0.0.1-SNAPSHOT.jar app.jar
 
 # Default port for local + Render
 ENV PORT=8080
