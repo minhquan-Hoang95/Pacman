@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 public class Grid {
     private final int rows, columns  ;
     private final Cell[][] grid;
-
     /**
      * Constructs a Grid with the specified number of rows and columns.
      *
@@ -210,6 +209,31 @@ public class Grid {
         return String.format("Grid %dx%d | Cells=%d | Dead ends=%d",
             rows, columns, rows * columns, deadEnds().size());
     }
+
+    /** Chcecks if the grid is symmetric
+     *  I have to check if the links between cells are symmetric across the vertical axis and horizontal axis .
+     *  and not just the presence of cells.
+     *  @return true if the grid is symmetric, false otherwise
+     * */
+    public boolean isSymmetric() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns / 2; j++) {
+                Cell leftCell = grid[i][j];
+                Cell rightCell = grid[i][columns - j - 1];
+
+                // Check if the links are symmetric
+                if (leftCell.isLinked(leftCell.east) != rightCell.isLinked(rightCell.west) ||
+                    leftCell.isLinked(leftCell.west) != rightCell.isLinked(rightCell.east) ||
+                    leftCell.isLinked(leftCell.north) != rightCell.isLinked(rightCell.north) ||
+                    leftCell.isLinked(leftCell.south) != rightCell.isLinked(rightCell.south)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
 
 
 

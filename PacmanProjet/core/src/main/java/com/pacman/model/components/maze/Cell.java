@@ -112,4 +112,66 @@ public class Cell {
             this.link(linkedCell, false);
         }
     }
+
+    /**
+     * Computes the distances (in number of steps) from this cell to all reachable cells
+     * using Breadth-First Search (BFS).
+     *
+     *
+     * @return a Distances object containing the shortest distance to every cell reachable from this one.
+     */
+    public Distances distances() {
+        Distances distances = new Distances(this);
+        List<Cell> frontier = new ArrayList<>();
+        frontier.add(this);
+
+        while (!frontier.isEmpty()) {
+            List<Cell> newFrontier = new ArrayList<>();
+
+            for (Cell cell : frontier) {
+                int currentDistance = distances.get(cell);
+
+                for (Cell linked : cell.links()) {
+                    // Skip already visited cells
+                    if (distances.get(linked) != null) continue;
+
+                    distances.put(linked, currentDistance + 1);
+                    newFrontier.add(linked);
+                }
+            }
+
+            frontier = newFrontier;
+        }
+
+        // return the shortest distances map from this cell to all reachable cells
+        return distances;
+    }
+
+    // translate Cell
+    public Cell translate(int dr, int dc) {
+        return new Cell(this.row + dr, this.col + dc);
+    }
+
+    // equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Cell other = (Cell) obj;
+        return row == other.row && col == other.col;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
+    }
+
+    /** Manhattan distance between two cells */
+    public int manhattanDistance(Cell other) {
+        return Math.abs(this.row - other.row) + Math.abs(this.col - other.col);
+    }
+    /** Euclidean distance between two cells */
+    public double euclideanDistance(Cell other) {
+        return Math.sqrt(Math.pow(this.row - other.row, 2) + Math.pow(this.col - other.col, 2));
+    }
+
 }
