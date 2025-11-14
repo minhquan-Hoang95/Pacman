@@ -110,43 +110,63 @@ public class MazeApiClient {
                 Cell cell = cells[r][c];
                 JsonValue cellObj = rowArray.get(c);
 
-                // IMPORTANT: dans le JSON:
-                // true = il y a un MUR (pas de passage)
-                // false = pas de mur (passage libre)
 
                 // NORD: vérifier s'il existe une cell au nord ET pas de mur
                 if (r > 0 && !cellObj.getBoolean("north")) {
                     Cell north = cells[r - 1][c];  // Cell une ligne au-dessus
                     cell.north = north;  // Définir voisin nord
-                    cell.link(north, false);  // Créer lien (false = pas de reciproque ici)
+                    cell.link(north);  // Créer lien (false = pas de reciproque ici)
                 }
 
                 // SUD: vérifier s'il existe une cell au sud ET pas de mur
                 if (r < rows - 1 && !cellObj.getBoolean("south")) {
                     Cell south = cells[r + 1][c];  // Cell une ligne en-dessous
                     cell.south = south;  // Définir voisin sud
-                    cell.link(south, false);  // Créer lien
+                    cell.link(south);  // Créer lien
                 }
-
                 // EST: vérifier s'il existe une cell à l'est ET pas de mur
                 if (c < cols - 1 && !cellObj.getBoolean("east")) {
                     Cell east = cells[r][c + 1];  // Cell une colonne à droite
                     cell.east = east;  // Définir voisin est
-                    cell.link(east, false);  // Créer lien
+                    cell.link(east);  // Créer lien
                 }
 
                 // OUEST: vérifier s'il existe une cell à l'ouest ET pas de mur
                 if (c > 0 && !cellObj.getBoolean("west")) {
                     Cell west = cells[r][c - 1];  // Cell une colonne à gauche
                     cell.west = west;  // Définir voisin ouest
-                    cell.link(west, false);  // Créer lien
+                    cell.link(west);  // Créer lien
                 }
+
+                // Déterminer si walkable
+//                boolean hasPassage =
+//                    !cellObj.getBoolean("north") ||
+//                        !cellObj.getBoolean("south") ||
+//                        !cellObj.getBoolean("east") ||
+//                        !cellObj.getBoolean("west");
+//
+//                cell.isWalkable = hasPassage;
+
+                // Après avoir défini isWalkable:
+//                if (r == 0 && c == 0) {
+//                    Gdx.app.log("DEBUG", "Cell[0,0] isWalkable=" + cell.isWalkable);
+//                }
             }
+
         }
 
         // Créer objet Maze final avec grille complètement configurée
         Maze maze = new Maze(id, rows, cols, cells);
         Gdx.app.log("MazeApiClient", "✓ Maze parsed: " + maze.getInfo());
+
+
+        System.out.println("\n🔍 SAMPLE CELL:");
+        JsonValue sample = cellsArray.get(1).get(1);
+        System.out.println("Cell[1,1] - north: " + sample.getBoolean("north"));
+        System.out.println("Cell[1,1] - south: " + sample.getBoolean("south"));
+        System.out.println("Cell[1,1] - east: " + sample.getBoolean("east"));
+        System.out.println("Cell[1,1] - west: " + sample.getBoolean("west"));
+
 
         return maze;
     }

@@ -12,6 +12,8 @@ public class Cell {
     public int row, col;
     public Cell north, south, east, west;
     private Map<Cell, Boolean> links;
+    public boolean isWalkable = false;  // ✅ Default WALL
+    public boolean hasPellet = false;
 
     /**
      * Constructs a Cell at the specified row and column.
@@ -103,17 +105,29 @@ public class Cell {
     public int getRow() { return row; }
     public int getCol() { return col; }
 
-
+//
     @Override
     public String toString() {
         return String.format("Cell(%d,%d)", row, col);
     }
 
+//    @Override
+//    public String toString() {
+//        return "Cell(" + row + "," + col + ")[" + (isWalkable ? "walkable" : "wall") + "]";
+//    }
 
+    /**
+     * Copies links from another cell to this cell.
+     * @param originalCell
+     */
     public void copyLinksFrom(Cell originalCell) {
         for (Cell linkedCell : originalCell.links()) {
             this.link(linkedCell, false);
         }
+   }
+    public boolean isWalkable(Cell cell) {
+      if (cell == null) return false;
+        return cell.isWalkable;  // Use actual property
     }
 
     /**
@@ -175,6 +189,19 @@ public class Cell {
     /** Euclidean distance between two cells */
     public double euclideanDistance(Cell other) {
         return Math.sqrt(Math.pow(this.row - other.row, 2) + Math.pow(this.col - other.col, 2));
+    }
+
+    boolean isIntersection() {
+        int pathCount = 0;
+        if (north != null) pathCount++;
+        if (south != null) pathCount++;
+        if (east != null) pathCount++;
+        if (west != null) pathCount++;
+        return pathCount > 2;
+    }
+
+    boolean isWalkable() {
+        return !links.isEmpty();
     }
 
 }

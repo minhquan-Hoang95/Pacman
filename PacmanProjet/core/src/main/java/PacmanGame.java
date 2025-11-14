@@ -80,10 +80,12 @@ public class PacmanGame extends Game {
      * - Éviter les allocations excessives
      * - Les ressources GPU doivent être créées ici (context graphique actif)
      */
+    GameScreen gameScreen;
+
     @Override
     public void create() {
         // Créer l'écran de jeu (contient GameScreen + tous ses composants)
-        GameScreen gameScreen = new GameScreen();
+        gameScreen = new GameScreen();
 
         // Définir cet écran comme écran ACTIF
         // LibGDX va maintenant appeler render(), resize(), etc. sur cet écran
@@ -166,7 +168,7 @@ public class PacmanGame extends Game {
      * @return hauteur en pixels
      */
     public int getGameHeight() {
-        return 600;  // Hardcodé pour cette démo
+        return 1000;  // Hardcodé pour cette démo
     }
 
     /**

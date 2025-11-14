@@ -131,13 +131,15 @@ public class MazeController {
 
             // ÉTAPE 2 : Adapter pour Pac-Man
             PacmanMaze adapter = new PacmanMaze(baseMaze);
-            adapter.braidMaze(1.0); // Braid 100% pour éliminer dead-ends après adaptation
-            adapter.applyHorizontalSymmetry();
-            adapter.carveMainRooms();
-            adapter.carveStraightHallways();
-            adapter.carveGhostHouse();
-            adapter.addTunnel();
-            Grid pacmanMaze = adapter.result();
+            Grid pacmanMaze = adapter.adapt();
+
+            // Verification
+            pacmanMaze.printStats();
+            boolean valid = pacmanMaze.isPacmanCompliant();
+
+            if (!valid) {
+                System.out.println("Pacman generation failed");
+            }
 
             // ÉTAPE 3 : Créer l'entité pour MongoDB
             MazeEntity entity = new MazeEntity();

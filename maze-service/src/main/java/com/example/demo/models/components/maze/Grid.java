@@ -57,6 +57,20 @@ public class Grid {
         }
     }
 
+    public void recomputeNeighbors() {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                Cell cell = grid[r][c];
+
+                cell.north = getCell(r - 1, c);
+                cell.south = getCell(r + 1, c);
+                cell.east  = getCell(r, c + 1);
+                cell.west  = getCell(r, c - 1);
+            }
+        }
+    }
+
+
     public Cell getCell(int row, int column) {
         if(row < 0 || row >= rows) return null;
         if(column < 0  || column >= columns) return null;
@@ -216,6 +230,31 @@ public class Grid {
         return grid;
     }
 
+    public boolean isHorizontallySymmetric() {
+        int rows = getRows();
+        int cols = getColumns();
+        int mid  = cols / 2;
+
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < mid; c++) {
+                Cell left  = getCell(r, c);
+                Cell right = getCell(r, cols - 1 - c);
+
+                // Chaque voisin de gauche doit exister côté droit dans la position miroir
+                for (Cell ln : left.links()) {
+                    int dr = ln.row - left.row;
+                    int dc = ln.col - left.col;
+                    Cell mirrored = getCell(right.row + dr, right.col - dc);
+                    if (mirrored == null || !right.isLinked(mirrored)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
 
     // ==================== FONCTIONS DE VÉRIFICATION ====================
 
@@ -224,39 +263,39 @@ public class Grid {
      *
      * @return true si parfaitement symétrique horizontalement
      */
-    public boolean isHorizontallySymmetric() {
-        int rows = getRows();
-        int cols = getColumns();
-
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols / 2; c++) {
-                Cell left = getCell(r, c);
-                Cell right = getCell(r, cols - 1 - c);
-
-                if (left == null || right == null) continue;
-
-                // Comparer les liens (miroir horizontal : est ↔ ouest)
-                boolean leftNorth = left.north != null && left.isLinked(left.north);
-                boolean rightNorth = right.north != null && right.isLinked(right.north);
-
-                boolean leftSouth = left.south != null && left.isLinked(left.south);
-                boolean rightSouth = right.south != null && right.isLinked(right.south);
-
-                boolean leftEast = left.east != null && left.isLinked(left.east);
-                boolean rightWest = right.west != null && right.isLinked(right.west);
-
-                boolean leftWest = left.west != null && left.isLinked(left.west);
-                boolean rightEast = right.east != null && right.isLinked(right.east);
-
-                if (leftNorth != rightNorth || leftSouth != rightSouth ||
-                    leftEast != rightWest || leftWest != rightEast) {
-                    System.out.println("❌ Asymétrie horizontale à [" + r + "," + c + "]");
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    public boolean isHorizontallySymmetric() {
+//        int rows = getRows();
+//        int cols = getColumns();
+//
+//        for (int r = 0; r < rows; r++) {
+//            for (int c = 0; c < cols / 2; c++) {
+//                Cell left = getCell(r, c);
+//                Cell right = getCell(r, cols - 1 - c);
+//
+//                if (left == null || right == null) continue;
+//
+//                // Comparer les liens (miroir horizontal : est ↔ ouest)
+//                boolean leftNorth = left.north != null && left.isLinked(left.north);
+//                boolean rightNorth = right.north != null && right.isLinked(right.north);
+//
+//                boolean leftSouth = left.south != null && left.isLinked(left.south);
+//                boolean rightSouth = right.south != null && right.isLinked(right.south);
+//
+//                boolean leftEast = left.east != null && left.isLinked(left.east);
+//                boolean rightWest = right.west != null && right.isLinked(right.west);
+//
+//                boolean leftWest = left.west != null && left.isLinked(left.west);
+//                boolean rightEast = right.east != null && right.isLinked(right.east);
+//
+//                if (leftNorth != rightNorth || leftSouth != rightSouth ||
+//                    leftEast != rightWest || leftWest != rightEast) {
+//                    System.out.println("❌ Asymétrie horizontale à [" + r + "," + c + "]");
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
     /**
      * Vérifier si le maze est symétrique VERTICALEMENT (haut ↔ bas)
@@ -512,6 +551,8 @@ public class Grid {
 
         return visited.size();
     }
+
+
 
 
 }

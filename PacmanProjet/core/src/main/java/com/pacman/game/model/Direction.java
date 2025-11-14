@@ -10,7 +10,7 @@ import com.pacman.game.model.Cell;
 public enum Direction {
     // Les 4 directions + offset (dRow, dCol)
     UP(-1, 0),      // Aller haut = -1 ligne
-    DOWN(1, 0),     // Aller bas = +1 ligne
+    DOWN(+1, 0),     // Aller bas = +1 ligne
     LEFT(0, -1),    // Aller gauche = -1 colonne
     RIGHT(0, 1),    // Aller droite = +1 colonne
     NONE(0, 0);     // Pas de mouvement
@@ -33,6 +33,14 @@ public enum Direction {
     // Getter pour changement de colonne
     public int dCol() {
         return dCol;
+    }
+
+    public int getdCol() {
+        return dCol;
+    }
+
+    public int getdRow() {
+        return dRow;
     }
 
     /**
